@@ -1,9 +1,10 @@
 # BoZoN
-
+Official website 	: http://bozon.pw
+Roadmap page 		: http://roadmap.bozon.pw
 
 
 ## Minimalist Drag & drop file sharing app
-( http://bozon.warriordudimanche.net/ )
+( http://demo.bozon.pw/ )
 - Install: just unzip on your server; no database/ php 5.2. Then go to index.php?p=admin page and create your login/pass. 
 - Config: just change config.php file. 
 - Upload a file: go to index.php?p=admin page, connect and then drop files in the dashed area... that's it !
@@ -23,14 +24,16 @@ I used a few libs I made
 - Array2feed.php : a function used to convert an array into a RSS feed without commiting suicide XD
 - "On-the-fly CSS Compression" (a personal modified version of https://gist.github.com/manastungare/2625128)
 
-
 and 
+
 - sorttables.js (http://www.kryogenix.org/code/browser/sorttable)
 - b-lazy (http://dinbror.dk/blazy)
 - qr-js (http://hg.mearie.org/qrjs)
 - m3uStreamPlayer.js (https://github.com/opi/m3uStreamPlayer)
 - audiojs (http://kolber.github.io/audiojs)
 - scrolltotop : (https://github.com/jerrywham-pluxml5-2/scrollToTop/)
+- marked.js : (https://github.com/chjj/marked)
+- vanillajs : (my own lib, very tiny)
 
 
 ## Licence
@@ -53,6 +56,6 @@ All Bozon code and all the personal libs used in it are distributed under AGPL: 
 
 ## Special thanks
 To Cyrille Borne [ https://github.com/cborne & http://www.cyrille-borne.com ]: without your comments, issues reporting and enhancement ideas this app would never have been so complete ;-)
-To Eauland for his great job on my poor css/html code (a pain in the ass it seems ! ^^)
+
 
 

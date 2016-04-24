@@ -10,8 +10,8 @@ if (function_exists('returnToken')){$token=returnToken();}
 
 $replacement=array(
 	'#tooltip_close'=>e('Delete this file',false),
-	'#tooltip_usershare'=>e('Share this folder with another user',false),
 	'#tooltip_link'=>e('Get the share link',false),
+	'#tooltip_qrcode'=>e('Get the qrcode of this link',false),
 	'#tooltip_rename'=>e('Rename this file (share link will not change)',false),
 	'#tooltip_lock'=>e('Put a password on this share',false),
 	'#tooltip_burn'=>e('Turn this share into a burn after access share',false),
@@ -28,7 +28,7 @@ $replacement=array(
 	'#Rename'=>e('Rename',false),
 	'#Delete_item'=>e('Delete this item?',false),
 	'#Delete'=>e('Delete',false),
-	'#Share_folder'=>e('Share folder',false),
+	'#Share_folder'=>e('Share item',false),
 	'#Share_link'=>e('Share link',false),
 	'#share_text'=>e('Select the users you want to share with',false),
 	'#Copy_link'=>e('Copy this share link',false),
@@ -57,7 +57,7 @@ function load_templates($tpl_array=null){
 		$tpl_array=_glob($path,$pattern='html');
 	}
 	foreach($tpl_array as $key=>$tpl){
-		$tpl=basename($tpl);
+		$tpl=_basename($tpl);
 		$tpl_name=substr($tpl,0,strlen($tpl)-5);
 		$templates[$tpl_name]=str_replace($k,$r,file_get_contents($path.$tpl));
 	}

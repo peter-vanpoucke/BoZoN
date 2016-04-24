@@ -19,15 +19,15 @@ if (!function_exists('is_user_connected')){
   <?php 
     $f=file_exists('private/auto_restrict_users.php');
     $n=isset($_GET['newuser']);
-    if ($n&&!is_admin()){include(THEME_PATH.'footer.php');exit;}
+    if ($n&&!is_allowed('add user')){safe_redirect('index.php?p=admin&token='.TOKEN);}
     $p=isset($_GET['change_password']);
     $input_login='<input type="text" name="login" id="login" required="required" autofocus placeholder="'.e('Login',false).'"/>';
     if(!$f||$n){
-    	echo '<h1>'.e('Create an account',false).'</h1>';
+    	echo '<h1>'.e('New account',false).'</h1>';
     }else if($p&&is_user_connected()){
-    	echo '<h1>'.e('Change password',false).'</h1>';
+    	//echo '<h1>'.e('Change password',false).'</h1>';
     }else{
-    	echo '<h1>'.e('Please, login',false).'</h1>';
+    	//echo '<h1>'.e('Please, login',false).'</h1>';
     }
   ?>
   
@@ -38,7 +38,7 @@ if (!function_exists('is_user_connected')){
     	echo '<div class="error">';
     		if ($_GET['error']==1){e('This login is not available, please try another one');}
     		if ($_GET['error']==2){e('Wrong combination login/pass');}
-    		if ($_GET['error']==3){e('The passwords doesn\'t match.');}
+    		if ($_GET['error']==3){e("The passwords doesn't match.");}
     		if ($_GET['error']==4){e('Problem with admin password.');}
     	echo '</div>'; 
     }
@@ -61,7 +61,7 @@ if (!function_exists('is_user_connected')){
   					echo '<input type="hidden" name="creation" value="1"/>';
   					echo $input_login;
   				}else if($p&&is_user_connected()){
-  					echo '<p id="user">'.e('User:',false).'&nbsp;'.$_SESSION['login'].'</p>';	
+  					echo '<h1 id="user">'.e('User:',false).'&nbsp;'.$_SESSION['login'].'</h1>';	
   					adminPassword($label='',$placeholder=e('Old password',false));
   				}else{
   					echo $input_login;
@@ -74,7 +74,7 @@ if (!function_exists('is_user_connected')){
     	<?php } ?>
     	<?php if (is_user_connected()){newToken();}?>
     	<div>
-    		<?php if($f&&!$n&&!is_user_connected()){echo '<input id="cookie" type="checkbox" value="cookie" name="cookie" /><label for="cookie">'.e('Stay connected',false).'</label>';} ?>
+    		<?php if($f&&!$n&&!is_user_connected()){echo '<input id="kouki" type="checkbox" value="cookie" name="cookie" /><label for="kouki">'.e('Stay connected',false).'</label>';} ?>
     		<input id="submit" type="submit" class="btn" value="Ok" />	
     	</div>
     </form>
@@ -82,10 +82,10 @@ if (!function_exists('is_user_connected')){
 </div>
 
 <script>
-  p=document.getElementById('pass');
-  c=document.getElementById('confirm');
-  function check(){
-    if (p.value!=c.value){c.style.backgroundColor='#edbcba';}
-		else{c.style.backgroundColor='#bcedbc';p.style.backgroundColor='#bcedbc'}
-  }
-</script>
+    p=document.getElementById('pass');
+    c=document.getElementById('confirm');
+    function check(){
+      if (p.value!=c.value){c.style.backgroundColor='#edbcba';}
+      else{c.style.backgroundColor='#bcedbc';p.style.backgroundColor='#bcedbc'}
+    }
+    </script>

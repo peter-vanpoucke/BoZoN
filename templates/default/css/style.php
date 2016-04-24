@@ -19,6 +19,8 @@
 */
 # replacement rules: "String to replace" => "Replacement"
 # You can change the colors here !
+session_start();
+if (!empty($_SESSION['config']['gallery_thumbs_width'])){$size=$_SESSION['config']['gallery_thumbs_width'];}else{$size='256';}
 $replace=array(
   '#basic_color_neutral'=>'#456',
   '#basic_color_dark'=>'#345',
@@ -27,7 +29,9 @@ $replace=array(
   '#hover_color_light'=>'#DEF',
   '#hover_color_neutral'=>'#789',
   '#hover_color_dark'=>'#234',
-  
+  '#hover_color_superdark'=>'#123',
+  '#THUMBS_SIZE'=>$size,
+  '#THUMBS_HIDING_HEIGHT'=>$size+4,
 );
 
 
@@ -63,8 +67,8 @@ $buffer = "";
 foreach ($cssFiles as $cssFile) {
   $buffer .= file_get_contents($cssFile);
 }
-$buffer=str_replace(array_keys($replace),array_values($replace),$buffer);
 
+$buffer=str_replace(array_keys($replace),array_values($replace),$buffer);
 // Remove unnecessary characters
 $buffer = preg_replace("|/\*[^*]*\*+([^/][^*]*\*+)*/|", "", $buffer);
 $buffer = preg_replace("/[\s]*([\:\{\}\;\,])[\s]*/", "$1", $buffer);
@@ -73,7 +77,7 @@ $buffer = preg_replace("/[\s]*([\:\{\}\;\,])[\s]*/", "$1", $buffer);
 $buffer = str_replace(array("\r\n", "\r", "\n"), '', $buffer);
 
 // Enable GZip encoding.
-ob_start("ob_gzhandler");
+//ob_start("ob_gzhandler");
 
 // Enable caching
 header('Cache-Control: public');

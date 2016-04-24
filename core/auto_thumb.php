@@ -1,8 +1,9 @@
 <?php
-const EXIF_ORIENTATION_TOP=1;
-const EXIF_ORIENTATION_BOTTOM=3;
-const EXIF_ORIENTATION_RIGHT=6;
-const EXIF_ORIENTATION_LEFT=8;
+
+define('EXIF_ORIENTATION_TOP',1);
+define('EXIF_ORIENTATION_BOTTOM',3);
+define('EXIF_ORIENTATION_RIGHT',6);
+define('EXIF_ORIENTATION_LEFT',8);
 
 function get_rotation_angle($exif_orientation){
 	if (EXIF_ORIENTATION_BOTTOM == $exif_orientation){return 180;}
@@ -13,20 +14,15 @@ function get_rotation_angle($exif_orientation){
 function auto_thumb($img,$width=null,$height=null,$add_to_thumb_filename='_THUMB_',$crop_image=true){
 	### VERSION MODIFIEE POUR BOZON ###
 	// initialisation
+	if (!getimagesize($img)){return false;}
 	$DONT_RESIZE_THUMBS=true;
 	global $auto_thumb;
 	if (!$width){$width=$auto_thumb['default_width'];}
 	if (!$height){$height=$auto_thumb['default_height'];}
 	$recadrageX=0;$recadrageY=0;
 	$motif='#\.(jpe?g|png|gif)#i';
-	$rempl=$add_to_thumb_filename.$width.'x'.$height.'.$1';	
-	/*if (!empty($_SESSION['upload_user_path'])&&empty($_GET['f'])){
-		$img=$_SESSION['upload_root_path'].$_SESSION['upload_user_path'].$img;
-		$thumb_name='thumbs/'.$_SESSION['upload_root_path'].$_SESSION['upload_user_path'].preg_replace($motif,$rempl,$img);
-	}else{*/
-		$thumb_name='thumbs/'.preg_replace($motif,$rempl,$img);
-	//}
-	// sortie prématurée:
+	$rempl=$add_to_thumb_filename.$width.'x'.$height.'.$1';		
+	$thumb_name='thumbs/'.preg_replace($motif,$rempl,$img);
 	if (!file_exists($img)){return 'auto_thumb ERROR: '.$img.' doesn\'t exists';}
 	if (file_exists($thumb_name)){return $thumb_name;} // miniature déjà créée
 	if ($add_to_thumb_filename!='' && preg_match($add_to_thumb_filename,$img) && $DONT_RESIZE_THUMBS){return false;} // on cherche à traiter un fichier miniature (rangez un peu !)
